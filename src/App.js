@@ -37,7 +37,7 @@ class App extends React.Component {
         name: 'Jasmine',
         image:
           'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.101dogbreeds.com%2Fwp-content%2Fuploads%2F2018%2F10%2FRed-Golden-Retriever.jpg&f=1&nofb=1',
-        cuteness: 5,
+        cuteness: 1,
       },
     ],
     kitties: [
@@ -75,7 +75,7 @@ class App extends React.Component {
   }
 
   handleClick = () => {
-    console.log('clicked');
+    console.log('Clicked Show/Hide');
     this.setState((currentState) => {
       console.log(currentState, '<-- currentState')
       return {
@@ -83,6 +83,35 @@ class App extends React.Component {
       }
     });
   };
+
+  sortPuppies = () => {
+    console.log('Clicked Sort Puppies');
+    this.setState((currentState) => {
+
+      const sortedPuppies = currentState.puppies.sort((a, b) => {
+        return b.cuteness - a.cuteness;
+      });
+
+      return {
+        puppies: sortedPuppies,
+      }
+    });
+  };
+
+  sortKitties = () => {
+    console.log('Clicked Sort Kitties');
+    this.setState((currentState) => {
+
+      const sortedKitties = currentState.kitties.sort((a, b) => {
+        return b.cuteness - a.cuteness;
+      })
+
+      return {
+        kitties: sortedKitties
+      }
+    });
+  };
+
 
   registerPresence() {
     console.log('Hello ' + userName);
@@ -96,9 +125,11 @@ class App extends React.Component {
         <Header user={userName} animals="Puppies" />
         <button onClick={this.handleClick}>Show / Hide Animals!</button>
         <AnimalList animals={this.state.puppies} showImages={this.state.showImages} />
+        <button onClick={this.sortPuppies}>Sort By Cuteness</button>
         <p>-------------------------------------------</p>
         <Header user={userName} animals="Kitties" />
         <AnimalList animals={this.state.kitties} showImages={this.state.showImages} />
+        <button onClick={this.sortKitties}>Sort By Cuteness</button>
       </div>
     );
   };

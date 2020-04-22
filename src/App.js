@@ -1,26 +1,111 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/header.js';
+import AnimalList from './components/animal-list.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const userName = 'Simeon';
+
+class App extends React.Component {
+  state = {
+    showImages: false,
+    puppies: [
+      {
+        name: 'Dexter',
+        image:
+          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fminidoodledogs.com%2Fwp-content%2Fuploads%2F2017%2F11%2FTeacup-Goldendoodle-Utah-Idaho-New_York-Philadephia-Massachussets-Georgia-Virginai-California-Washington-Goldendoodle-Puppies-Golden-doodle-Dog-0001-1.jpg&f=1&nofb=1',
+        cuteness: 3,
+      },
+      {
+        name: 'Gripper',
+        image:
+          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhiddenpondlabradors.com%2Fwp-content%2Fuploads%2F2015%2F10%2Fsept172110.jpg&f=1&nofb=1',
+        cuteness: 5,
+      },
+      {
+        name: 'Foxy',
+        image:
+          'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nqWl0huZbvo%2FUOQuudYjQqI%2FAAAAAAAAODU%2F1cEZlr5-pZ4%2Fs1600%2Fpomeranian-puppy.jpg&f=1&nofb=1',
+        cuteness: 4,
+      },
+      {
+        name: 'Kippen',
+        image:
+          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.101dogbreeds.com%2Fwp-content%2Fuploads%2F2015%2F03%2FWestiepoo-Puppy.jpg&f=1&nofb=1',
+        cuteness: 2,
+      },
+      {
+        name: 'Jasmine',
+        image:
+          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.101dogbreeds.com%2Fwp-content%2Fuploads%2F2018%2F10%2FRed-Golden-Retriever.jpg&f=1&nofb=1',
+        cuteness: 5,
+      },
+    ],
+    kitties: [
+      {
+        name: 'Birman',
+        image:
+          'https://bestcatadvisor.com/wp-content/uploads/Birman-cat-1-259x300.jpg',
+        cuteness: 4,
+      },
+      {
+        name: 'Bella',
+        image:
+          'https://www.europetnet.com/images/catbreeds/52.jpg',
+        cuteness: 5,
+      },
+      {
+        name: 'Oscar',
+        image:
+          'https://i.dailymail.co.uk/i/pix/2014/09/08/1410184268404_wps_46_Lesley_Pleasant_s_cat_Osc.jpg',
+        cuteness: 3,
+      },
+      {
+        name: 'Griffin',
+        image:
+          'https://www.cats.org.uk/media/1112/agressive-cat.jpg?width=1600',
+        cuteness: 1,
+      },
+      {
+        name: 'Jasmine',
+        image:
+          'https://www.catbreedselector.com/wp-content/uploads/2016/06/Serrade-Petit-Cat-Photo.jpg',
+        cuteness: 2,
+      },
+    ],
+  }
+
+  handleClick = () => {
+    console.log('clicked');
+    this.setState((currentState) => {
+      console.log(currentState, '<-- currentState')
+      return {
+        showImages: !currentState.showImages
+      }
+    });
+  };
+
+  registerPresence() {
+    console.log('Hello ' + userName);
+  };
+
+  render() {
+    console.log('Rendering...')
+    return (
+      <div className="App">
+        <button onClick={this.registerPresence}>REGISTER</button>
+        <Header user={userName} animals="Puppies" />
+        <button onClick={this.handleClick}>Show / Hide Animals!</button>
+        <AnimalList animals={this.state.puppies} showImages={this.state.showImages} />
+        <p>-------------------------------------------</p>
+        <Header user={userName} animals="Kitties" />
+        <AnimalList animals={this.state.kitties} showImages={this.state.showImages} />
+      </div>
+    );
+  };
+};
+
+
 
 export default App;
+
+// module.exports = App

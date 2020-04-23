@@ -87,10 +87,9 @@ class App extends React.Component {
 
   sortAnimals = (event) => {
     console.log('Clicked Sort Animals');
-    console.log(event.target.name, '<-- the event target name when animals button clicked');
+
     const requestedSort = event.target.name;
     this.setState((currentState) => {
-      console.log(requestedSort, '<-- the requested sort')
 
       let animalsToSort = '';
 

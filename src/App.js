@@ -57,24 +57,25 @@ class App extends React.Component {
         name: 'Oscar',
         image:
           'https://i.dailymail.co.uk/i/pix/2014/09/08/1410184268404_wps_46_Lesley_Pleasant_s_cat_Osc.jpg',
-        cuteness: 3,
+        cuteness: 2,
       },
       {
-        name: 'Griffin',
+        name: 'Marmite',
         image:
-          'https://www.cats.org.uk/media/1112/agressive-cat.jpg?width=1600',
+          'https://media.daysoftheyear.com/20171223130148/black-cat-day-1-scaled.jpg',
         cuteness: 1,
       },
       {
-        name: 'Jasmine',
+        name: 'Misty',
         image:
-          'https://www.catbreedselector.com/wp-content/uploads/2016/06/Serrade-Petit-Cat-Photo.jpg',
-        cuteness: 2,
+          'https://i.pinimg.com/originals/9f/ed/0a/9fed0a691575a2635fc394d7a7d529bf.jpg',
+        cuteness: 3,
       },
     ],
+    animalsToSort: ''
   }
 
-  handleClick = () => {
+  handleImagesClick = () => {
     console.log('Clicked Show/Hide');
     this.setState((currentState) => {
       console.log(currentState, '<-- currentState')
@@ -84,37 +85,39 @@ class App extends React.Component {
     });
   };
 
-  sortPuppies = () => {
-    console.log('Clicked Sort Puppies');
+  sortAnimals = (event) => {
+    console.log('Clicked Sort Animals');
+    console.log(event.target.name, '<-- the event target name when animals button clicked');
+    const requestedSort = event.target.name;
     this.setState((currentState) => {
+      console.log(requestedSort, '<-- the requested sort')
 
-      const sortedPuppies = currentState.puppies.sort((a, b) => {
+      let animalsToSort = '';
+
+      if (requestedSort === 'puppySortButton') {
+        animalsToSort = 'puppies';
+      } else {
+        animalsToSort = 'kitties';
+      }
+
+      const sortedAnimals = currentState[animalsToSort].sort((a, b) => {
         return b.cuteness - a.cuteness;
       });
 
       return {
-        puppies: sortedPuppies,
+        animalsToSort: sortedAnimals,
       }
     });
   };
-
-  sortKitties = () => {
-    console.log('Clicked Sort Kitties');
-    this.setState((currentState) => {
-
-      const sortedKitties = currentState.kitties.sort((a, b) => {
-        return b.cuteness - a.cuteness;
-      })
-
-      return {
-        kitties: sortedKitties
-      }
-    });
-  };
-
 
   registerPresence() {
     console.log('Hello ' + userName);
+  };
+
+  addAnimal() {
+    this.setState(() => {
+
+    });
   };
 
   render() {
@@ -123,19 +126,17 @@ class App extends React.Component {
       <div className="App">
         <button onClick={this.registerPresence}>REGISTER</button>
         <Header user={userName} animals="Puppies" />
-        <button onClick={this.handleClick}>Show / Hide Animals!</button>
+        <button onClick={this.handleImagesClick}>Show / Hide Animals!</button>
         <AnimalList animals={this.state.puppies} showImages={this.state.showImages} />
-        <button onClick={this.sortPuppies}>Sort By Cuteness</button>
+        <button name='puppySortButton' onClick={this.sortAnimals}>Sort By Cuteness</button>
         <p>-------------------------------------------</p>
         <Header user={userName} animals="Kitties" />
         <AnimalList animals={this.state.kitties} showImages={this.state.showImages} />
-        <button onClick={this.sortKitties}>Sort By Cuteness</button>
+        <button name='kittySortButton' onClick={this.sortAnimals}>Sort By Cuteness</button>
       </div>
     );
   };
 };
-
-
 
 export default App;
 
